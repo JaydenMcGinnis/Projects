@@ -32,13 +32,13 @@ body {
 
 .navbar_container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   height: 80px;
   z-index: 1;
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 50px;
 }
 
 #navbar_logo {
@@ -50,7 +50,7 @@ body {
   );
   background-size: 100%;
   -webkit-background-clip: text;
-  -moz-background-clip: clip;
+  -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
   display: flex;
@@ -121,7 +121,7 @@ body {
 @media screen and (max-width: 960px) {
   .navbar_container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     height: 80px;
     z-index: 1;
     width: 100%;
@@ -140,10 +140,11 @@ body {
     transition: all 0.5s ease;
     height: 50vh;
     z-index: -1;
+    background: var(--base-color);
   }
 
-  .navbar_.active {
-    background: #131313;
+  .navbar_menu.active {
+    background: var(--base-color);
     top: 100%;
     opacity: 1;
     transition: all 0.5s ease;
@@ -156,7 +157,7 @@ body {
     padding-left: 25px;
   }
 
-  .nabar_toggle.bar {
+  .navbar_toggle .bar {
     width: 25px;
     height: 3px;
     margin: 5px auto;
@@ -166,6 +167,50 @@ body {
 
   .navbar_item {
     width: 100%;
+  }
+
+  .navbar_links {
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    display: table;
+  }
+
+  #mobile-menu {
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    transform: translate(5%, 20%);
+  }
+
+  .navar_btn {
+    padding-bottom: 2rem;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 50px;
+    margin: 0;
+  }
+
+  .navbar_toggle .bar {
+    display: block;
+    cursor: pointer;
+  }
+
+  #mobile-menu.is-active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  #mobile-menu.is-active .bar:nth-child(1) {
+    transform: translate(8px) rotate(45deg);
+  }
+
+  #mobile-menu.is-active .bar:nth-child(3) {
+    transform: translate(-8px) rotate(-45deg);
   }
 }
 
@@ -177,20 +222,23 @@ body {
   gap: 50px;
 }
 
-.hero_image {
-  display: flex;
-  position: absolute;
-  z-index: 1;
-  margin: auto;
+.hero_container .hero_image {
+}
+
+.hero_text {
+  width: 250px;
+  margin-right: 20px;
 }
 
 .hero_text h1 {
-  font-weight: 1000;
+  font-weight: bolder;
 }
 
 .hero_text p {
   margin: 20px 0;
+  font-size: 16px;
 }
 
-.hero_text.button {
+.hero_text .button {
+  width: 100px;
 }
