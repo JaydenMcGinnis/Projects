@@ -268,3 +268,7 @@ body {
   text-decoration: none;
   width: 100%;
 }
+
+.main_image--containor {
+  display: flex;
+}
