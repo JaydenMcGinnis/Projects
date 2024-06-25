@@ -230,6 +230,7 @@ body {
   width: 100%;
   max-width: 1300px;
   padding: 0 50px;
+  gap: 50px;
 }
 
 .main_content h1 {
@@ -269,6 +270,7 @@ body {
   width: 100%;
 }
 
-.main_image--containor {
+.main_image--container {
   display: flex;
+  position: absolute;
 }
