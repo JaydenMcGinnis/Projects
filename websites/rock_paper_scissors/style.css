@@ -1,0 +1,22 @@
+.optionContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 100px auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+button {
+    height: 300px;
+    width: 300px;
+    font-size: larger;
+}
+
+p, #score {
+    font-size: larger;
+    font-weight: bolder;
+    text-align: center;
+}
