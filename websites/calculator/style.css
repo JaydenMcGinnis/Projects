@@ -2,21 +2,17 @@
     box-sizing: border-box;
 }
 
-.main-container, .calc-container, .number-container, .operator-container, .number-container > div {
+.main-container, .calc-container, .number-container, .number-container > div {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.operator-container {
-    flex-direction: column;
 }
 
 .number-container {
     flex-direction: column;
 }
 
-.operator-container > div, .number-container > div > div {
+.number-container > div > div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +23,14 @@
     margin: 1px;
 }
 
-.operator-container > div:hover , .number-container > div > div:hover {
+.number-container > div > div:hover, .display:hover, .delete:hover {
     border: 2px solid #ccc;
     box-shadow: 3px 3px 3px #ccc;
+}
+
+.display, .delete {
+    height: 50px;
+    width: 208px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
