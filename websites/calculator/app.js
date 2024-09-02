@@ -1,6 +1,6 @@
 let firstNum = '';
 let secondNum = '';
-let operator = null;
+let operator = '';
 const display = document.querySelector('.display')
 display.textContent = 0;
 
@@ -23,67 +23,55 @@ function devide(a, b) {
 
 function operate(a, b, op) {
     // Display update
-    let answer = 0;
+    a = parseFloat(a)
+    b = parseFloat(b)
     // use ops corralating function for result
     switch (op) {
         case '+':
-            answer = add(a, b);
-            break;
+            return add(a, b);
         case '-':
-            answer = subtract(a, b);
-            break;
+            return subtract(a, b);
         case '*':
-            answer = multiply(a, b);
-            break;
+            return multiply(a, b);
         case '/':
-            answer = devide(a, b)
-            break;
+            return devide(a, b)
     }
-    display.textContent = answer;
 }
 
-function getFirstNumber(number) {
-    firstNum += number.textContent
-    display.textContent = firstNum;
+// Get number
+function getNumber(num) {
+    secondNum += num
+    display.textContent = secondNum
 }
 
-function getSecondNumber(number) {
-    secondNum += number.textContent
-    display.textContent = secondNum;
+// Get operator
+function getOperator(op) {
+    if (firstNum && secondNum && operator) {
+        firstNum = operate(firstNum, secondNum, operator)
+        display.textContent = firstNum;
+    } else {
+        firstNum = secondNum
+    }
+    operator = op;
+    secondNum = '';
 }
 
-function calculate() {
-    // Onclick for number
-    const row = document.querySelectorAll('.number');
-    row.forEach((number) => {
-        number.addEventListener('click', () => {
-            if (operator === null) {
-                getFirstNumber(number)
-            } else {
-                getSecondNumber(number)
-            }
-})})
 
-    // When equal is pressed
-    const equal = document.querySelector('.equal')
-    equal.addEventListener('click', () => {
-        operate(firstNum, secondNum, operator)
-    })
+document.querySelectorAll('.number').forEach(number => {
+    number.addEventListener('click', () => getNumber(number.textContent));
+});
 
-    // Update operator variable
-    const getOperator = document.querySelectorAll('.operator')
-    getOperator.forEach((oper) => {oper.addEventListener('click', (op) => {
-        operator = op.target.textContent
-    })})
+document.querySelectorAll('.operator').forEach(operator => {
+    operator.addEventListener('click', () => getOperator(operator.textContent));
+});
 
-    const del = document.querySelector('.delete')
-    del.addEventListener('click', () => {
-        firstNum = '';
-        secondNum = '';
-        operator = null;
-        display.textContent = 0;
-    })
+document.querySelector('.equal').addEventListener('click', () => {
+    display.textContent = operate(firstNum, secondNum, operator)
+})
 
-}
-
-calculate()
+document.querySelector('.delete').addEventListener('click', () => {
+    firstNum = '';
+    secondNum = '';
+    operator = '';
+    display.textContent = 0;
+})
