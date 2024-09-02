@@ -18,6 +18,13 @@ function multiply(a, b) {
 }
 
 function devide(a, b) {
+    if (a == 0 || b == 0) {
+        firstNum = '';
+        secondNum = '';
+        operator = '';
+        display.textContent = 0;
+        return alert("You cant devide by 0");
+    }
     return a / b;
 }
 
