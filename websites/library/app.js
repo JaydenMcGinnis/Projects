@@ -15,12 +15,19 @@ let Harry_Potter_and_the_Deathly_Hallows = new Book("Harry Potter and the Deathl
                                                     false
 );
 
+let Atomic_Habits = new Book("Atomic Habits",
+    "James Clear",
+    320,
+    false
+);
+
 function addToLibrary(book, library) {
     // Add book to library
     library.push(book);
 };
 
 addToLibrary(Harry_Potter_and_the_Deathly_Hallows, library);
+addToLibrary(Atomic_Habits, library)
 
 function displayBooks(library) {
     // Loop through library array and create new cards
