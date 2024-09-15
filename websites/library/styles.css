@@ -14,7 +14,7 @@ body {
 .main-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, 250px);
-    gap: 30px;
+    gap: 20px;
 }
 
 .card {
@@ -30,16 +30,28 @@ table th {
     border: 1px solid black;
 }
 
-.sidebar {
-    height: 500px;
+.sidebar-container {
+    background-color: #b6d3d6;
+    border-radius: 10px;
+    box-shadow: 1px 0px 5px 1px #9c9c9c;
 }
 
 .sidebar form{
     display: grid;
     grid-template-rows: 1fr;
     gap: 20px;
+    padding: 20px;
+    font-size: 1.1rem;
 }
 
 label {
     display: block;
+}
+
+input[type="button"] {
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    background-color: lightcoral;
+    box-shadow: 1px 0px 5px 1px #9c9c9c;
 }
