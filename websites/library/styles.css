@@ -6,7 +6,7 @@
 
 body {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 4fr;
     gap: 20px;
     padding: 20px;
 }
@@ -18,7 +18,7 @@ body {
 }
 
 .card {
-    height: 200px;
+    height: 225px;
     background-color: #b6d3d6;
     border-radius: 10px;
     padding: 10px;
@@ -48,7 +48,7 @@ label {
     display: block;
 }
 
-input[type="button"] {
+input[type="submit"], .remove-button {
     border-radius: 10px;
     padding: 10px;
     border: none;

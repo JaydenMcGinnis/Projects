@@ -1,6 +1,10 @@
+// Get the main-container element
+const mainContainer = document.querySelector(".main-container");
+
 // Array of books
 const library = [];
 
+// Book object creator
 function Book(title, author, pages, read) {
     // Book constructor
     this.title = title;
@@ -9,37 +13,54 @@ function Book(title, author, pages, read) {
     this.read = read;
 };
 
-let Harry_Potter_and_the_Deathly_Hallows = new Book("Harry Potter and the Deathly Hallows",
-                                                    "J. K. Rowling",
-                                                    607,
-                                                    false
+// test book
+let book1 = new Book(
+    "Harry Potter and the Deathly Hallows",
+    "J. K. Rowling",
+    607,
+    false
 );
 
-let Atomic_Habits = new Book("Atomic Habits",
+// test book
+let book2 = new Book(
+    "Atomic Habits",
     "James Clear",
     320,
     false
 );
+
+addToLibrary(book1, library);
+addToLibrary(book2, library)
 
 function addToLibrary(book, library) {
     // Add book to library
     library.push(book);
 };
 
-addToLibrary(Harry_Potter_and_the_Deathly_Hallows, library);
-addToLibrary(Atomic_Habits, library)
-
+// Displays every book in library as a card
 function displayBooks(library) {
+    removeCards()
     // Loop through library array and create new cards
-    library.forEach(book => {
-        createCard(book);
+    library.forEach((book, index) => {
+        createCard(book, index);
     });
 };
 
-// Get the main-container element
-const mainContainer = document.querySelector(".main-container");
+displayBooks(library);
 
-function createCard(book) {
+// Remove book object from list
+function removeBook(book, library) {
+    library.remove(book);
+    displayBooks()
+}
+
+//remove all cards
+function removeCards() {
+    document.querySelectorAll(".card").forEach(e => e.remove());
+}
+
+// Card with the details of each book inside library list
+function createCard(book, index) {
     // Create card div
     let card = document.createElement("div");
     card.classList.add("card");
@@ -54,6 +75,17 @@ function createCard(book) {
     // Create table row for headers
     let headerRow = document.createElement("tr");
     let valueRow = document.createElement("tr");
+
+    let removeButton = document.createElement("button");
+    removeButton.classList.add("remove-button")
+    removeButton.innerText = "Remove";
+    removeButton.setAttribute("data-index", index)
+
+    removeButton.addEventListener("click", () => {
+        library.splice(index, 1);
+        displayBooks(library)
+        console.log(library)
+    })
 
     // Object.keys(book) returns an array of property names
     Object.keys(book).forEach(key => {
@@ -77,21 +109,38 @@ function createCard(book) {
     // Assemble card by appending the title and the table
     card.appendChild(bookTitle);
     card.appendChild(bookTable);
+    card.appendChild(removeButton);
 
     // Append the card to the main container
     mainContainer.appendChild(card);
-}
+};
 
-// Create a function that gets all the innerText from each input and then plugs
-// them into a book() func to create a new book instance and store that in
-// library list
+/** @description Create a book from the 
+ * values inside the form when button 
+ * is clicked
+ */
 function createBook() {
-    const title = document.getElementById("#title")
-    const author = document.getElementById("#author")
-    const pages = document.getElementById("#pages")
-    const read = document.getElementById("#read")
-
+    const title = document.getElementById("title").value
+    const author = document.getElementById("author").value
+    const pages = document.getElementById("pages").value
+    const read = document.getElementById("read").value
     
+    let newBook = new Book(title, author, pages, read);
+    addToLibrary(newBook, library);
+    event.preventDefault();
 }
 
-displayBooks(library);
+// Remove values from all form inputs
+function removeValues() {
+    document.querySelectorAll("input[type='text']").forEach(e => {
+        e.value = "";
+    })
+}
+
+// listen for button click event
+const btn = document.querySelector("input[type='submit']");
+btn.addEventListener("click", () => {
+    createBook();
+    displayBooks(library)
+    removeValues()
+});
