@@ -82,4 +82,16 @@ function createCard(book) {
     mainContainer.appendChild(card);
 }
 
+// Create a function that gets all the innerText from each input and then plugs
+// them into a book() func to create a new book instance and store that in
+// library list
+function createBook() {
+    const title = document.getElementById("#title")
+    const author = document.getElementById("#author")
+    const pages = document.getElementById("#pages")
+    const read = document.getElementById("#read")
+
+    
+}
+
 displayBooks(library);
