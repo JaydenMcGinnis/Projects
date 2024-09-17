@@ -1,3 +1,4 @@
+// Main query selectors
 const mainContainer = document.querySelector(".main-container");
 const form = document.querySelector("form");
 
@@ -24,6 +25,7 @@ let book1 = new Book(
 // test book
 let book2 = new Book("Atomic Habits", "James Clear", 320, false);
 
+// Adding test books to library and displaying the initial book
 addToLibrary(book1, library);
 addToLibrary(book2, library);
 displayBooks(library);
@@ -35,8 +37,9 @@ function addToLibrary(book, library) {
 
 // Displays every book in library as a card
 function displayBooks(library) {
+  // Remove display or cards
   removeCards();
-  // Loop through library array and create new cards
+  // Create book object cards from library
   library.forEach((book, index) => {
     createCard(book, index);
   });
