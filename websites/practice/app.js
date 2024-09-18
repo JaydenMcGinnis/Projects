@@ -1,23 +1,25 @@
-function sayHi(name) {
-  return function yell(surname) {
-    return name.toUpperCase() + " " + surname.toUpperCase();
+// Revealing module
+const Formatter = (function () {
+  // Private function/method
+  const log = (message) => console.log(`[${Date.now()}] Logger: ${message}`);
+
+  const makeUppercase = (text) => {
+    log("Making uppercase");
+    return text.toUpperCase();
   };
-}
 
-// Assigning speak to the return value of sayHi()
-// It returns the function yell()
-const speak = sayHi("jayden");
+  // returns an object of whatever you want to give access to
+  return {
+    makeUppercase: makeUppercase,
+  };
+})();
+// The () invokes the function immediately (IIFE)
 
-console.log(speak);
+console.log(Formatter.makeUppercase("hello"));
 
-// Speak is like using yell() but has the local variable of name
-console.log(speak("mcginnis"));
+// Object literal
+const Format = {
+  log: (message) => console.log(`[${Date.now()}] Logger: ${message}`),
+};
 
-console.log(sayHi("J")("M"));
-
-/**
- * Closures are the ability of a child function,
- * or an inner function, to access variables from
- * a higher level scope even after the functions
- * have been called or closed or closed over.
- */
+Format.log("hello");
