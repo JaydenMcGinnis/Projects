@@ -1,19 +1,14 @@
-// Create object through function
-function book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read ? "have read" : "not read yet";
-    this.info = function () {
-        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`;
-    };
+function sayHi(name) {
+  return function yell(surname) {
+    return name.toUpperCase() + " " + surname.toUpperCase();
+  };
 }
 
-book.prototype.rating = 5;
-book.prototype.showRating = function () {
-    return `Rating: ${this.rating}/10`;
-}
+// Assigning speak to the return value of sayHi()
+// It returns the function yell()
+const speak = sayHi("jayden");
 
-let theHobbit = new book("The Hobbit", "J.R.R. Tolkien", 295, true);
+console.log(speak);
 
-console.log(theHobbit.info())
+// Speak is like using yell() but has the local variable of name
+console.log(speak("mcginnis"));
