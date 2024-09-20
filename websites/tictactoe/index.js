@@ -1,99 +1,66 @@
-// Game Board
-const Gameboard = (function () {
-  const rows = 3;
-  const columns = 3;
+// Gameboard Module
+const gameboardModule = (() => {
+  // Board
   const board = [];
-
-  //  Create a 2d array of cells
-  const emptyBoard = () => {
-    for (let i = 0; i < rows; i++) {
+  // Reset Board
+  const resetBoard = () => {
+    for (let i = 0; i < 3; i++) {
       board[i] = [];
-      for (let j = 0; j < columns; j++) {
-        board[i][j] = [];
+      for (let j = 0; j < 3; j++) {
+        board[i][j] = ["x"];
       }
     }
   };
-
-  emptyBoard();
-
-  //  Updates board
-  const updateBoard = function (row, column, activePlayer) {
-    // Changes the cell on the board to activePlayers symbol
-    if (board[row][column] != false) {
-      return console.log("This cell is already taken");
-    }
-    board[row][column] = activePlayer.symbol;
-    displayBoard();
-  };
-
-  // Get board
-  const getBoard = () => board;
-
-  // Display board
-  const displayBoard = function () {
+  // Display Board
+  const displayBoard = () => {
     board.map((row) => console.log(row));
+  };
+  // Get Board
+  const getBoard = () => board;
+  // Update Board
+  const markBoard = (row, column) => {
+    board[row][column] = activePlayer.symbol;
   };
 
   return {
-    updateBoard,
+    resetBoard,
+    displayBoard,
     getBoard,
+    markBoard,
   };
 })();
 
-// Players
-const Players = function (
-  playerOneName = "Player one",
-  playerTwoName = "Player two"
-) {
-  // List of players
-  const players = [
-    { name: playerOneName, symbol: "X" },
-    { name: playerTwoName, symbol: "O" },
-  ];
-
-  //  Set current active player
-  let activePlayer = players[0];
-
-  // Change player
-  const changeActivePlayer = () => {
-    activePlayer = activePlayer == players[0] ? players[1] : players[0];
+const playerModule = () => {
+  // Player list
+  const players = [];
+  // Create Player
+  const createPlayers = (name, symbol) => {
+    if (board.length < 2) players.push({ name, symbol });
   };
-
+  // Set active player
+  const activePlayer = players[0].name;
   // Get active player
   const getActivePlayer = () => activePlayer;
+  // Change active player
+  const changeActivePlayer = () => {
+    activePlayer = activePlayer ? board[0].name : board[1].name;
+  };
 
   return {
-    changeActivePlayer,
+    createPlayers,
     getActivePlayer,
+    changeActivePlayer,
   };
 };
 
-// Game logic
-const GameController = (() => {
-  // Inherit
-  const board = Gameboard;
-  const players = Players();
-
-  const playRound = (rows, columns) => {
-    const activePlayer = players.getActivePlayer();
-    board.updateBoard(rows, columns, activePlayer);
-
-    if (checkWin()) {
-      console.log(`${activePlayer.name} wins!`);
-      return; // Stop the game after a win
-    }
-
-    if (checkTie()) {
-      console.log("It's a tie!");
-      return; // Stop the game after a tie
-    }
-
-    players.changeActivePlayer();
-  };
-
-  // Check win conditions for active player
+const gameLogicModule = () => {
+  // Game state
+  const gameState = false;
+  // Check game state
+  const checkGameState = () => gameState;
+  // Check winner
   const checkWin = () => {
-    const currentBoard = board.getBoard(); // Fix board variable name
+    const currentBoard = board.getBoard();
 
     // CHECK ROWS
     for (let i = 0; i < 3; i++) {
@@ -136,8 +103,7 @@ const GameController = (() => {
 
     return null; // No winner yet
   };
-
-  // Check if the game is tied
+  // Check tie
   const checkTie = () => {
     const currentBoard = board.getBoard();
     for (let i = 0; i < 3; i++) {
@@ -151,6 +117,12 @@ const GameController = (() => {
   };
 
   return {
-    playRound,
+    checkGameState,
+    checkTie,
+    checkWin,
   };
-})();
+};
+
+const displayControllerModule = () => {
+  // Piece game together
+};
