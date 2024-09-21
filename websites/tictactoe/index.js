@@ -1,143 +1,142 @@
-// Game Board
-const Gameboard = (function () {
-  const rows = 3;
-  const columns = 3;
-  const board = [];
+const gameboardModule = (() => {
+  // Create board
+  const board = ["", "", "", "", "", "", "", "", ""];
 
-  //  Create a 2d array of cells
-  const emptyBoard = () => {
-    for (let i = 0; i < rows; i++) {
-      board[i] = [];
-      for (let j = 0; j < columns; j++) {
-        board[i][j] = [];
+  // Every cell in board
+  const cells = document.querySelectorAll(".cell");
+
+  // Win combinations
+  const winConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  // Check win
+  function checkWin() {
+    // Check current board against win conditions
+    for (let i = 0; i < winConditions.length; i++) {
+      const [a, b, c] = winConditions[i];
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+        console.log(`${board[a]} is the winner!`);
+        return true;
       }
     }
-  };
+    return false;
+  }
 
-  emptyBoard();
+  // Check tie
+  function checkTie() {
+    return board.every((cell) => cell !== "");
+  }
 
-  //  Updates board
-  const updateBoard = function (row, column, activePlayer) {
-    // Changes the cell on the board to activePlayers symbol
-    if (board[row][column] != false) {
-      return console.log("This cell is already taken");
+  // Update display
+  function updateDisplay() {
+    for (let i = 0; i < cells.length; i++) {
+      cells[i].textContent = board[i];
     }
-    board[row][column] = activePlayer.symbol;
-    displayBoard();
-  };
+  }
 
-  // Get board
-  const getBoard = () => board;
-
-  // Display board
-  const displayBoard = function () {
-    board.map((row) => console.log(row));
-  };
+  // Reset board
+  function resetBoard() {
+    for (let i = 0; i < board.length; i++) {
+      board[i] = "";
+    }
+    updateDisplay();
+  }
 
   return {
-    updateBoard,
-    getBoard,
+    updateDisplay,
+    resetBoard,
+    checkWin,
+    checkTie,
+    cells,
+    board,
   };
 })();
 
-// Players
-const Players = function (
-  playerOneName = "Player one",
-  playerTwoName = "Player two"
-) {
+function players() {
+  let player1 = document.querySelector(".player1").value;
+  let player2 = document.querySelector(".player2").value;
+
+  if (player1 === "") player1 = "Player 1";
+
+  if (player2 === "") player2 = "Player 2";
   // List of players
-  const players = [
-    { name: playerOneName, symbol: "X" },
-    { name: playerTwoName, symbol: "O" },
+  const playerList = [
+    { name: player1, symbol: "X" },
+    { name: player2, symbol: "O" },
   ];
 
-  //  Set current active player
-  let activePlayer = players[0];
+  // Set active player
+  let activePlayer = playerList[0];
 
-  // Change player
-  const changeActivePlayer = () => {
-    activePlayer = activePlayer == players[0] ? players[1] : players[0];
-  };
+  // Change active player
+  function changeActivePlayer() {
+    activePlayer =
+      activePlayer === playerList[0] ? playerList[1] : playerList[0];
+  }
 
   // Get active player
-  const getActivePlayer = () => activePlayer;
+  function getActivePlayer() {
+    return activePlayer;
+  }
 
   return {
     changeActivePlayer,
     getActivePlayer,
+    playerList,
   };
-};
+}
 
-// Game logic
-const GameController = (() => {
-  // Inherit
-  const board = Gameboard;
-  const players = Players();
+const displayControllerModule = (() => {
+  const playerController = players();
+  const notiify = document.querySelector(".notify");
 
-  const playRound = (rows, columns) => {
-    const activePlayer = players.getActivePlayer();
-    board.updateBoard(rows, columns, activePlayer);
+  // Add event listener to all cells
+  function playRound() {
+    notiify.textContent = "";
+    gameboardModule.resetBoard();
+    gameboardModule.cells.forEach((cell) => {
+      cell.addEventListener("click", () => {
+        const index = cell.getAttribute("data-index");
 
-    if (checkWin()) {
-      console.log(`${activePlayer.name} wins!`);
-      return; // Stop the game after a win
-    }
+        // Only allow a move if the cell is empty
+        if (!gameboardModule.board[index]) {
+          // Get the active player
+          const currentPlayer = playerController.getActivePlayer();
 
-    if (checkTie()) {
-      console.log("It's a tie!");
-      return; // Stop the game after a tie
-    }
+          // Update the board with the current player's symbol
+          gameboardModule.board[index] = currentPlayer.symbol;
 
-    players.changeActivePlayer();
-  };
+          // Update the display
+          gameboardModule.updateDisplay();
 
-  // Check win conditions for active player
-  const checkWin = () => {
-    const currentBoard = board.getBoard(); // Fix board variable name
-
-    // CHECK ROWS AND COLUMNS
-    for (let i = 0; i < 3; i++) {
-      if (
-        (currentBoard[i][0] &&
-          currentBoard[i][0] === currentBoard[i][1] &&
-          currentBoard[i][1] === currentBoard[i][2]) ||
-        (currentBoard[0][i] &&
-          currentBoard[0][i] === currentBoard[1][i] &&
-          currentBoard[1][i] === currentBoard[2][i])
-      ) {
-        return true;
-      }
-    }
-
-    // CHECK DIAGONALS
-    if (
-      (currentBoard[0][0] &&
-        currentBoard[0][0] === currentBoard[1][1] &&
-        currentBoard[1][1] === currentBoard[2][2]) ||
-      (currentBoard[0][2] &&
-        currentBoard[0][2] === currentBoard[1][1] &&
-        currentBoard[1][1] === currentBoard[2][0])
-    ) {
-      return true;
-    }
-
-    return null; // No winner yet
-  };
-
-  // Check if the game is tied
-  const checkTie = () => {
-    const currentBoard = board.getBoard();
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (currentBoard[i][j] == false) {
-          return false; // There is at least one empty cell, no tie
+          // Check for win or tie
+          if (gameboardModule.checkWin()) {
+            notiify.textContent = `${currentPlayer.name} wins!`;
+          } else if (gameboardModule.checkTie()) {
+            notiify.textContent = "It's a tie!";
+          } else {
+            // Switch to the next player
+            playerController.changeActivePlayer();
+          }
         }
-      }
-    }
-    return true; // All cells are filled, it's a tie
-  };
+      });
+    });
+  }
 
-  return {
-    playRound,
-  };
+  // Reset
+  document.querySelector(".reset").addEventListener("click", () => {
+    gameboardModule.resetBoard();
+  });
+
+  document.querySelector(".start").addEventListener("click", () => {
+    playRound();
+  });
 })();
