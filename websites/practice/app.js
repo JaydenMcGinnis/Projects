@@ -1,25 +1,48 @@
-// Revealing module
-const Formatter = (function () {
-  // Private function/method
-  const log = (message) => console.log(`[${Date.now()}] Logger: ${message}`);
+// Classes and their role
+// Class declaration
+class User {
+  constructor(name, surname) {
+    this.name = name;
+    this.surname = surname;
+  }
+}
 
-  const makeUppercase = (text) => {
-    log("Making uppercase");
-    return text.toUpperCase();
-  };
+/* 
+function declaration as a constructor function
+function User(name, surname){
+  this.name = name,
+  this.surname = surname,
+}
+*/
 
-  // returns an object of whatever you want to give access to
-  return {
-    makeUppercase: makeUppercase,
-  };
-})();
-// The () invokes the function immediately (IIFE)
-
-console.log(Formatter.makeUppercase("hello"));
-
-// Object literal
-const Format = {
-  log: (message) => console.log(`[${Date.now()}] Logger: ${message}`),
+// Class expression
+const Rectangle = class {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
 };
 
-Format.log("hello");
+/* 
+function expression as a constructor function
+const Rectangle = function(name, surname) {
+  this.name = name,
+  this.surname = surname,
+}
+*/
+
+// Named Class expression
+const Rectangle = class Rectangle2 {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+};
+
+/**
+Named function expression
+const Rectangle = function RectangleConstructor(name, surname) {
+  this.name = name;
+  this.surname = surname;
+};
+ */
