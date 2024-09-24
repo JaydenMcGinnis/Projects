@@ -1,3 +1,6 @@
+// Importing from exporter.js
+import { greeting } from "./exporter.js";
+
 class Person {
   get species() {
     "Homo spaiens";
