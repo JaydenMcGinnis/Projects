@@ -1,48 +1,49 @@
-// Classes and their role
-// Class declaration
-class User {
-  constructor(name, surname) {
-    this.name = name;
-    this.surname = surname;
+class Person {
+  get species() {
+    "Homo spaiens";
+  }
+
+  static speciesSentance() {
+    return `Humans are classified as ${this.species}`;
+  }
+
+  constructor(firstname, lastname) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.hasJob = false;
+  }
+
+  fullname() {
+    return `${this.firstname} ${this.lastname}`;
+  }
+
+  setFirstName(firstname) {
+    this.firstname = firstname;
+  }
+
+  setLastName(lastname) {
+    this.lastname = lastname;
+  }
+
+  set setFullName(name) {
+    name = name.split(" ");
+    this.setFirstName(name[0]);
+    this.setLastName(name[1]);
   }
 }
 
-/* 
-function declaration as a constructor function
-function User(name, surname){
-  this.name = name,
-  this.surname = surname,
-}
-*/
+const person1 = new Person("Jayden", "McGinnis");
 
-// Class expression
-const Rectangle = class {
-  constructor(height, width) {
-    this.height = height;
-    this.width = width;
+class Worker extends Person {
+  constructor(firstname, lastname, job) {
+    super(firstname, lastname);
+    this.job = job;
+    this.hasJob = true;
   }
-};
 
-/* 
-function expression as a constructor function
-const Rectangle = function(name, surname) {
-  this.name = name,
-  this.surname = surname,
-}
-*/
-
-// Named Class expression
-const Rectangle = class Rectangle2 {
-  constructor(width, height) {
-    this.width = width;
-    this.height = height;
+  setJob(job) {
+    this.job = job;
   }
-};
+}
 
-/**
-Named function expression
-const Rectangle = function RectangleConstructor(name, surname) {
-  this.name = name;
-  this.surname = surname;
-};
- */
+const person2 = new Worker("Jayden", "McGinnis", "Builder");
