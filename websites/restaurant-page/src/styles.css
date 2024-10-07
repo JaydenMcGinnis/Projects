@@ -1,3 +1,18 @@
 nav ul {
   list-style-type: none;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+nav li button {
+  background-color: #719cd4;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+#content {
+  display: flex;
 }
