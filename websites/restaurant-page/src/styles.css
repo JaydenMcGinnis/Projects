@@ -1,18 +1,52 @@
-nav ul {
+ul {
   list-style-type: none;
   display: flex;
   gap: 10px;
   justify-content: center;
+  padding: 0;
 }
 
 nav li button {
-  background-color: #719cd4;
+  background-color: #e59744;
   border: none;
   border-radius: 8px;
   font-size: 1.3rem;
   color: #fff;
 }
 
-#content {
+.content-container, .starter-container, .main-container, .side-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content-container div {
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+  width: 40vw;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.starter-container div,
+.main-container div,
+.side-container div {
+  border: none;
+}
+
+h1, h3, h4 {
+  text-align: center;
+}
+
+button {
+  width: 125px;
+  padding: 10px;
+} 
+
+body {
+  background-image: url("./luffyimg.jpg");
+  background-size: 25vw;
+  text-align: center;
 }

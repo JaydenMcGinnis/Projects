@@ -3,6 +3,7 @@
 export const HomeModule = () => {
   // *** CREATE ALL ELEMENTS ***
   const homeContainer = document.createElement("div");
+  homeContainer.classList.add("content-container");
 
   // Create element helper function
   const createElement = (tag, classNames = [], textContent = "") => {

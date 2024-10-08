@@ -19,7 +19,7 @@ export const MenuModule = () => {
   // *** ELEMENT CREATION ***
 
   // Menu Container
-  const menuContainer = createElement("div", ["menu-container"]);
+  const menuContainer = createElement("div", ["content-container"]);
 
   // Starters
   const starterContainer = createElement("div", ["starter-container"]);

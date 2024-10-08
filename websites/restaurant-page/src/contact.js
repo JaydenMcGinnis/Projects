@@ -16,7 +16,7 @@ export const ContactModule = () => {
 
   // *** CREATE ELEMENTS ***
   // main container
-  const contactContainer = createElement("div", ["contactContainer"]);
+  const contactContainer = createElement("div", ["content-container"]);
 
   // First Contact Info
   const firstContainer = createElement("div", ["first-contact"]);

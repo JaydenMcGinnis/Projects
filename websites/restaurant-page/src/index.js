@@ -1,7 +1,13 @@
 import "./styles.css";
+// import luffyimg from "./luffyimg.jpg";
 import { HomeModule } from "./home";
 import { MenuModule } from "./menu";
 import { ContactModule } from "./contact";
+
+// Importing img to be used in js
+// const image = document.createElement("img");
+// image.src = luffyimg;
+// document.body.appendChild(image);
 
 const homeBtn = document.querySelector("#home");
 const menuBtn = document.querySelector("#menu");
