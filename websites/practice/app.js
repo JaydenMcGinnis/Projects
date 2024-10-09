@@ -1,52 +1,58 @@
-// Importing from exporter.js
-import { greeting } from "./exporter.js";
+async function populate() {
+  const requestURL =
+    "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json";
+  const request = new Request(requestURL);
 
-class Person {
-  constructor(firstname, lastname) {
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.hasJob = false;
-  }
+  const response = await fetch(request);
+  const superHeroes = await response.json();
 
-  get species() {
-    "Homo spaiens";
-  }
+  populateHeader(superHeroes);
+  populateHeroes(superHeroes);
+}
 
-  static speciesSentance() {
-    return `Humans are classified as ${this.species}`;
-  }
+function populateHeader(obj) {
+  const header = document.querySelector("header");
+  const myH1 = document.createElement("h1");
+  myH1.textContent = obj.squadName;
+  header.appendChild(myH1);
 
-  fullname() {
-    return `${this.firstname} ${this.lastname}`;
-  }
+  const myPara = document.createElement("p");
+  myPara.textContent = `Hometown: ${obj.homeTown} // Formed: ${obj.formed}`;
+  header.appendChild(myPara);
+}
 
-  setFirstName(firstname) {
-    this.firstname = firstname;
-  }
+function populateHeroes(obj) {
+  const section = document.querySelector("section");
+  const heroes = obj.members;
 
-  setLastName(lastname) {
-    this.lastname = lastname;
-  }
+  for (const hero of heroes) {
+    const myArticle = document.createElement("article");
+    const myH2 = document.createElement("h2");
+    const myPara1 = document.createElement("p");
+    const myPara2 = document.createElement("p");
+    const myPara3 = document.createElement("p");
+    const myList = document.createElement("ul");
 
-  set setFullName(name) {
-    name = name.split(" ");
-    this.setFirstName(name[0]);
-    this.setLastName(name[1]);
+    myH2.textContent = hero.name;
+    myPara1.textContent = `Secret identity: ${hero.secretIdentity}`;
+    myPara2.textContent = `Age: ${hero.age}`;
+    myPara3.textContent = "Superpowers:";
+
+    const superPowers = hero.powers;
+    for (const power of superPowers) {
+      const listItem = document.createElement("li");
+      listItem.textContent = power;
+      myList.appendChild(listItem);
+    }
+
+    myArticle.appendChild(myH2);
+    myArticle.appendChild(myPara1);
+    myArticle.appendChild(myPara2);
+    myArticle.appendChild(myPara3);
+    myArticle.appendChild(myList);
+
+    section.appendChild(myArticle);
   }
 }
 
-const person1 = new Person("Jayden", "McGinnis");
-
-class Worker extends Person {
-  constructor(firstname, lastname, job) {
-    super(firstname, lastname);
-    this.job = job;
-    this.hasJob = true;
-  }
-
-  setJob(job) {
-    this.job = job;
-  }
-}
-
-const person2 = new Worker("Jayden", "McGinnis", "Builder");
+populate();
