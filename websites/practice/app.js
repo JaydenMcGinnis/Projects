@@ -2,18 +2,18 @@
 import { greeting } from "./exporter.js";
 
 class Person {
+  constructor(firstname, lastname) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.hasJob = false;
+  }
+
   get species() {
     "Homo spaiens";
   }
 
   static speciesSentance() {
     return `Humans are classified as ${this.species}`;
-  }
-
-  constructor(firstname, lastname) {
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.hasJob = false;
   }
 
   fullname() {
